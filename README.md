@@ -34,7 +34,10 @@ $ npm install -g @vue/cli
 $ vue --version
 3.0.5
 ```
+ps: If you have the previous vue-cli (1.x or 2.x) package installed globally, you need to uninstall it first with `npm uninstall vue-cli -g`
+
 If the version is 3.x, u can go Vue UI successfully
+
 ## 3. Vue UI
 ```sh
 $ vue ui
@@ -60,7 +63,7 @@ Find your workspace, the workspace of IDE is better. `mkdir` is not needed, vue 
 
 ![snapshot03](https://github.com/LauItachi/vue-cli/blob/master/README_assets/snapshot03.png)
 
-##### 3.1.2.2. Pre-settings 预设
+##### 3.1.2.2. PreSets 预设
 
 ![snapshot04](https://github.com/LauItachi/vue-cli/blob/master/README_assets/snapshot04.png)
 
@@ -72,7 +75,7 @@ Recommended manual configuration at the beginning, some settings are not necessa
 
 - [x] **Babel**: a JavaScript compiler
 - [ ] TypeScript: Not recommended
-- [x] **PWA**: Progressive Web App
+- [ ] PWA: Progressive Web App, not now
 - [x] **Router**: yeah we need it
 - [ ] Vuex: state management pattern + library, well not yet
 - [x] **CSS Pre-processors**: yeah let's try this
@@ -80,7 +83,7 @@ Recommended manual configuration at the beginning, some settings are not necessa
 - [ ] Unit Testing: not yet
 - [ ] E2E: not yet 
 
-##### 3.1.2.4. Configurations 配置 
+##### 3.1.2.4. Configurations 配置
 
 ![snapshot05](https://github.com/LauItachi/vue-cli/blob/master/README_assets/snapshot05.png)
 
@@ -92,7 +95,7 @@ Css Pre-processors : Less, well this is *less*
 
 And finish it.
 
-##### SameTime
+#### SameTime
 
 ![snapshot06](https://github.com/LauItachi/vue-cli/blob/master/README_assets/snapshot06.png)
 
