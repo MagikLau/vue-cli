@@ -105,28 +105,27 @@ Vue-Cli is processing at whole time
 
 ![snapshot07](https://github.com/LauItachi/vue-cli/blob/master/README_assets/snapshot07.png)
 
+### 3.3. Common Operation
 
-## Project setup
-```
-npm install
-```
+- Project setup: `npm install`
+- Compiles and hot-reloads for development: `npm run serve`
+- Compiles and minifies for production: `npm run build`
+- Run your tests: `npm run test`
+- Lints and fixes files: `npm run lint`
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 4. Vue-Router
+**单页应用的核心**
+https://router.vuejs.org/guide/
 
-### Compiles and minifies for production
-```
-npm run build
-```
+当前通过vue-ui创建的项目已经配置了vue-router，可以查看App.vue中的router-link标签，分别对应Home和About的页面或组件
 
-### Run your tests
-```
-npm run test
-```
+## 5. WebSocket(Socket.io)
+[Basic Chat Web App using Express.js, Vue.js & Socket.io](https://medium.com/@jaouad_45834/basic-chat-web-app-using-express-js-vue-js-socket-io-429588e841f0)
 
-### Lints and fixes files
-```
-npm run lint
-```
+
+## 6. UI
+- [element-ui](http://element-cn.eleme.io)
+- semantic-ui
+- muse-ui
+- iviewui
+- echarts
