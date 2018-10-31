@@ -1,7 +1,5 @@
 <template>
-    <footer>
-        <h1>{{about}}</h1>
-    </footer>
+    <!--<el-footer>Footer {{about}} </el-footer>-->
 </template>
 
 <script>

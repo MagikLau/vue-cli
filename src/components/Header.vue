@@ -1,8 +1,6 @@
 <template>
-    <header>
-        <h1>{{title}}</h1>
-        <router-link to="/login">Login</router-link>
-    </header>
+    <!--<el-header>Header</el-header>-->
+    <router-link to="/login">Login</router-link>
 </template>
 
 <script>
