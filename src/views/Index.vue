@@ -1,98 +1,112 @@
-<!--suppress XmlInvalidId -->
 <template>
-  <div class="index">
-      <el-container>
-          <el-aside width="200px">Aside</el-aside>
-          <el-container>
-              <!--<app-header/>-->
-              <el-header>Header</el-header>
-              <el-main>
-                  <div class="messages" v-for="(msg, index) in messages" :key="index">
-                      <p><span class="font-weight-bold">{{ msg.user }}: </span>{{ msg.message }}</p>
-                  </div>
-                  <form @submit.prevent="sendMessage">
-                      <div class="gorm-group">
-                          <label for="user">User:</label>
-                          <input type="text" v-model="user" class="form-control" title="user">
-                      </div>
-                      <div class="gorm-group pb-3">
-                          <label for="message">Message:</label>
-                          <input type="text" v-model="message" class="form-control" title="message">
-                      </div>
-                      <button type="submit" class="btn btn-success">Send</button>
-                  </form>
-              </el-main>
-              <!--<app-footer/>-->
-              <el-footer>Footer</el-footer>
-          </el-container>
-      </el-container>
-      <router-view />
-  </div>
+    <div class="index">
+        <AppHeader />
+        <el-container>
+            <NavMenu />
+            <el-container direction="vertical">
+                <router-view />
+                <AppFooter />
+            </el-container>
+        </el-container>
+
+    </div>
 </template>
 <script>
 
-import AppHeader from "@/components/Header";
-import AppFooter from "@/components/Footer";
-import io from 'socket.io-client';
+    import AppHeader from "@/components/Header";
+    import AppFooter from "@/components/Footer";
+    import io from 'socket.io-client';
+    import NavMenu from "../components/NavMenu";
 
-export default {
-    name: 'home',
-    data() {
-        return {
-            user: '',
-            message: '',
-            messages: [],
-            socket : io('localhost:3001')
-        }
-    },
-    methods: {
-        sendMessage(e) {
-            e.preventDefault();
+    let socket;
+    // let path, token;
 
-            this.socket.emit('SEND_MESSAGE', {
-                user: this.user,
-                message: this.message
+    export default {
+        name: 'index',
+        data(){
+
+        },
+        methods: {
+            open(rcv_msg) {
+                const h = this.$createElement;
+                this.$notify({
+                    title: 'New',
+                    message: h('i', { style: 'color: teal'}, rcv_msg),
+                    duration: 2000
+                });
+            },
+            sendMessage(e) {
+                // e.preventDefault();
+                let msg = {
+                    user: this.user,
+                    message: this.message
+                };
+                alert(JSON.stringify(msg));
+                socket.emit('SEND_MESSAGE', msg);
+                alert('Sent');
+                this.message = '';
+            },
+        },
+        mounted() {
+            socket = io('localhost:3001');
+            socket.on('CONNECTED', (rcv_msg) => {
+                this.open(rcv_msg);
+
+                // this.user = rcv_msg.user;
             });
-            this.message = ''
+            socket.on('MESSAGE', (rcv_msg) => {
+                // this.messages = [...this.messages, data];
+                // this.messages.push(data);
+                if( rcv_msg.user ){
+                    this.open(rcv_msg);
+                }
+
+            });
+        },
+        destroyed(){
+            socket.close();
+            console.log('closed');
+        },
+        components: {
+            AppHeader,
+            NavMenu,
+            AppFooter,
         }
-    },
-    mounted() {
-        this.socket.on('MESSAGE', (data) => {
-            this.messages = [...this.messages, data];
-            // you can also do this.messages.push(data)
-        });
-    },
-    components: {
-        'app-header': AppHeader,
-        'app-footer': AppFooter,
-    }
-};
+    };
 </script>
 
 <style>
-    .el-header, .el-footer {
-        background-color: #B3C0D1;
-        color: #333;
+    .el-header {
+        background-color: #409EFF;
+        color: #FFFFFF;
+        text-align: center;
+        line-height: 60px;
+        padding: 0;
+    }
+
+    .el-footer {
+        background-color: #545c64;
+        color: #FFFFFF;
         text-align: center;
         line-height: 60px;
     }
 
     .el-aside {
-        background-color: #D3DCE6;
-        color: #333;
+        background-color: #545c64;
+        color: #FFFFFF;
         text-align: center;
         line-height: 200px;
     }
 
     .el-main {
         background-color: #E9EEF3;
-        color: #333;
+        color: #FFFFFF;
         text-align: center;
         line-height: 160px;
     }
 
     body > .el-container {
-        margin-bottom: 40px;
+        /*margin-bottom: 40px;*/
     }
 
     .el-container:nth-child(5) .el-aside,
