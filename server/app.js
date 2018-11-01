@@ -9,9 +9,13 @@ const server = app.listen(3001, function() {
 const io = require('socket.io')(server);
 
 io.on('connection', function(socket) {
+
+    socket.emit('CONNECTED', 'Socket.id: '+socket.id+' connected!'); // emit an event to the socket
+
     console.log('User: '+socket.id+' connect!');
+
     socket.on('SEND_MESSAGE', function(data) {
-        console.log('server emit: '+JSON.stringify(data));
+        console.log('io emit: '+JSON.stringify(data));
         io.emit('MESSAGE', data);
     });
 });
