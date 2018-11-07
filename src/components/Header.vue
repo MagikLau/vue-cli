@@ -3,7 +3,7 @@
         <el-menu
                 class="el-menu-demo"
                 mode="horizontal"
-                router="true"
+                router=true
                 background-color="#545c64"
                 text-color="#fff"
                 active-text-color="#ffd04b">
@@ -20,6 +20,7 @@ export default {
     data () {
         return {
             title: 'Vue Header',
+            socket: io('localhost:3001'),
         };
     }
 }

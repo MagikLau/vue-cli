@@ -15,19 +15,18 @@
 
     import AppHeader from "@/components/Header";
     import AppFooter from "@/components/Footer";
-    import io from 'socket.io-client';
     import NavMenu from "../components/NavMenu";
-
-    let socket;
-    // let path, token;
+    import io from 'socket.io-client';
 
     export default {
         name: 'index',
         data(){
-
+            return {
+                socket: io('localhost:3001'),
+            }
         },
         methods: {
-            open(rcv_msg) {
+            popNotice(rcv_msg) {
                 const h = this.$createElement;
                 this.$notify({
                     title: 'New',
@@ -35,36 +34,23 @@
                     duration: 2000
                 });
             },
-            sendMessage(e) {
-                // e.preventDefault();
-                let msg = {
-                    user: this.user,
-                    message: this.message
-                };
-                alert(JSON.stringify(msg));
-                socket.emit('SEND_MESSAGE', msg);
-                alert('Sent');
-                this.message = '';
-            },
+
         },
         mounted() {
-            socket = io('localhost:3001');
-            socket.on('CONNECTED', (rcv_msg) => {
-                this.open(rcv_msg);
-
-                // this.user = rcv_msg.user;
+            this.socket.on('CONNECTED', (rcv_msg) => {
+                this.popNotice(rcv_msg);
             });
-            socket.on('MESSAGE', (rcv_msg) => {
+            this.socket.on('MESSAGE', (rcv_msg) => {
                 // this.messages = [...this.messages, data];
                 // this.messages.push(data);
                 if( rcv_msg.user ){
-                    this.open(rcv_msg);
+                    this.popNotice(rcv_msg);
                 }
 
             });
         },
         destroyed(){
-            socket.close();
+            this.socket.close();
             console.log('closed');
         },
         components: {
@@ -103,6 +89,7 @@
         color: #FFFFFF;
         text-align: center;
         line-height: 160px;
+        padding: 0;
     }
 
     body > .el-container {

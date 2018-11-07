@@ -34,6 +34,9 @@
 
 </template>
 <script>
+
+    import io from 'socket.io-client';
+
     export default {
         name: 'content',
         data(){
@@ -41,10 +44,25 @@
                 user: '',
                 message: '',
                 // messages: [],
+                socket: io('localhost:3001'),
             }
         },
         methods: {
-
-        }
+            sendMessage(e) {
+                // e.preventDefault();
+                let msg = {
+                    user: this.user,
+                    message: this.message
+                };
+                alert(JSON.stringify(msg));
+                this.socket.emit('SEND_MESSAGE', msg);
+                alert('Sent');
+                this.message = '';
+            }
+        },
+        destroyed(){
+            this.socket.close();
+            console.log('closed');
+        },
     }
 </script>
